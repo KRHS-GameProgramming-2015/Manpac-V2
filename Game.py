@@ -13,8 +13,13 @@ bgColor = r,g,b = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-walls = [Wall([0,0],[800,25]),
-         Wall([0,25],[25,300]),]
+walls = [Wall([0,0],[800,50]), #0
+         Wall([0,50],[50,300]),
+         Wall([0,400],[50,650]),
+         Wall([0,650],[700,700]),
+         Wall([650,400],[700,650]),
+         Wall([650,50],[700,300]), #5
+         ]
          
 while True:
     for event in pygame.event.get():
