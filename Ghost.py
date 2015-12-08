@@ -70,19 +70,16 @@ class Ghost():
                         self.speedx = -self.speedx
                         self.didBounceX = True
                         self.move()
-                        oldspeedx = self.speedx
-                        while self.speed == [0,0] or self.speedx == oldspeedx:
-                            self.speedx = self.maxSpeed * random.randint(-1,1)
-                            self.speed = [self.speedx, self.speedy]
                 if not self.didBounceY:
                     if ((self.rect.center[1] < other.rect.center[1] and self.speedy > 0) or
                         (self.rect.center[1] > other.rect.center[1] and self.speedy < 0)):
                         self.speedy = -self.speedy
                         self.didBounceY = True
                         self.move()
-                        oldspeedy = self.speedy
-                        while self.speed == [0,0] or self.speedy == oldspeedy:
-                            self.speedy = self.maxSpeed * random.randint(-1,1)
-                            self.speed = [self.speedx, self.speedy]
+                oldspeed = self.speed
+                while self.speed == [0,0] or self.speed == oldspeed:
+                    self.speedx = self.maxSpeed * random.randint(-1,1)
+                    self.speedy = self.maxSpeed * random.randint(-1,1)
+                    self.speed = [self.speedx, self.speedy]
                 return True
         return False
