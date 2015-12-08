@@ -1,5 +1,6 @@
 import sys, pygame, math, random
 from Wall import *
+from Ghost import *
 
 pygame.init()
 
@@ -12,6 +13,10 @@ size = width, height
 bgColor = r,g,b = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
+
+ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
+          Ghost("blue", [random.randint(250, 450),random.randint(250, 450)]),
+          Ghost("green", [random.randint(250, 450),random.randint(250, 450)])]
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
@@ -38,9 +43,16 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             sys.exit()
+            
+    for ghost in ghosts:
+        ghost.update(size)
+        for wall in walls:
+            ghost.collideWall(wall)
     
     bgColor = r,g,b
     screen.fill(bgColor)
+    for ghost in ghosts:
+        screen.blit(ghost.image, ghost.rect)
     for wall in walls:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
