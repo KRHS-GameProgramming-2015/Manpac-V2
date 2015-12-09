@@ -1,6 +1,7 @@
 import sys, pygame, math, random
 from Wall import *
 from Ghost import *
+from Manpac import *
 
 pygame.init()
 
@@ -17,6 +18,8 @@ screen = pygame.display.set_mode(size)
 ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("blue", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("green", [random.randint(250, 450),random.randint(250, 450)])]
+
+player = Manpac([7,7], (601,601))
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
@@ -43,7 +46,27 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             sys.exit()
-            
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                player.go("up")
+            elif event.key == pygame.K_DOWN:
+                player.go("down")
+            elif event.key == pygame.K_LEFT:
+                player.go("left")
+            elif event.key == pygame.K_RIGHT:
+                player.go("right")
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP:
+                player.go("stop up")
+            elif event.key == pygame.K_DOWN:
+                player.go("stop down")
+            elif event.key == pygame.K_LEFT:
+                player.go("stop left")
+            elif event.key == pygame.K_RIGHT:
+                player.go("stop right")
+                
+    player.update(size)
+        
     for ghost in ghosts:
         ghost.update(size)
         for wall in walls:
@@ -51,6 +74,7 @@ while True:
     
     bgColor = r,g,b
     screen.fill(bgColor)
+    screen.blit(player.image, player.rect)
     for ghost in ghosts:
         screen.blit(ghost.image, ghost.rect)
     for wall in walls:
