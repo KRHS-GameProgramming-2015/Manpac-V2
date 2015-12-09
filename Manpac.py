@@ -1,33 +1,55 @@
 import sys, pygame, math
-from Ball import Ball
 
-class PlayerBall(Ball):
+class Manpac():
     def __init__(self, maxSpeed, pos = [0,0]):
-        Ball.__init__(self, ["pacman-open-right.png"], [0,0], pos)
-        self.rightImages = [pygame.image.load("pacman-open-right.png"),
-                            pygame.image.load("pacman-closed-right.png")]
+        self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),[45,45]),
+                            pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),[45,45])]
                            
-        self.leftImages = [pygame.image.load("pacman-open-left.png"),
-                           pygame.image.load("pacman-closed-left.png")]
+        self.leftImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-left.png"),[45,45]),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-left.png"),[45,45])]
                            
-        self.upImages = [pygame.image.load("pacman-closed-upwards.png"),
-                              pygame.image.load("pacman-open-upwards.png")]
+        self.upImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-upwards.png"),[45,45]),
+                        pygame.transform.scale(pygame.image.load("Manpac/pacman-open-upwards.png"),[45,45])]
         
-        self.downImages = [pygame.image.load("pacman-closed-downwards.png"),
-                                pygame.image.load("pacman-open-downwards.png")]
+        self.downImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-downwards.png"),[45,45]),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-open-downwards.png"),[45,45])]
         
         
         self.images = self.rightImages
-        self.images = self.leftImages
-        self.images = self.upwardsImages
-        self.images = self.downwardsImages
+        self.frame = 0
         self.maxFrame = len(self.images)-1
+        
+        self.image = self.images[self.frame]
+        self.rect = self.image.get_rect()
+        self.radius = self.rect.width/2 - 2
         
         self.xDirection = "right"
         self.yDirection = "none"
         
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
+        
         self.maxSpeedx = maxSpeed[0]
         self.maxSpeedy = maxSpeed[1]
+        
+        self.timer = 0
+        self.timerMax = .25* 60
+        
+        self.didBounceX = False
+        self.didBounceY = False
+        
+        self.rect = self.rect.move(pos)
+        
+        self.living = True
+        
+    def die(self):
+        self.living = False
+
+    def update(self, size):
+        self.move()
+        self.animate()
+        self.collideScreen(size)
     
     def collideScreen(self, size):
         width = size[0]
@@ -46,19 +68,31 @@ class PlayerBall(Ball):
                 self.move()
                 self.speedy = 0
     
+    def animate(self):
+        if self.timer < self.timerMax:
+            self.timer += 1
+        else:
+            self.timer = 0
+            if self.frame < self.maxFrame:
+                self.frame += 1
+            else:
+                self.frame = 0
+        self.image = self.images[self.frame]
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
+        self.didBounceX = False
+        self.didBounceY = False
+    
     def go(self, direction):
         if direction == "up":
             self.yDirection = "up"
             self.speedy = -self.maxSpeedy
-            if self.xDirection == "right":
-                self.images = self.upRightImages
-            elif self.xDirection == "left":
-                selfimages = self.upLeftImages
-            else:
-                self.images = self.upwardsImages
+            self.images = self.upImages
         elif direction == "down":
             self.speedy = self.maxSpeedy
-            self.images = self.downwardsImages
+            self.images = self.downImages
         
         if direction == "right":
             self.speedx = self.maxSpeedx
