@@ -19,7 +19,7 @@ ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("blue", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("green", [random.randint(250, 450),random.randint(250, 450)])]
 
-player = Manpac([7,7], (601,601))
+player = Manpac([7,7], (602,602))
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
@@ -66,7 +66,9 @@ while True:
                 player.go("stop right")
                 
     player.update(size)
-        
+    for wall in walls:
+        player.collideWall(wall)
+                
     for ghost in ghosts:
         ghost.update(size)
         for wall in walls:

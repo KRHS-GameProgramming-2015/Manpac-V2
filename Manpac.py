@@ -2,17 +2,17 @@ import sys, pygame, math
 
 class Manpac():
     def __init__(self, maxSpeed, pos = [0,0]):
-        self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),[45,45]),
-                            pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),[45,45])]
+        self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),[40,40]),
+                            pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),[40,40])]
                            
-        self.leftImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-left.png"),[45,45]),
-                           pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-left.png"),[45,45])]
+        self.leftImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-left.png"),[40,40]),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-left.png"),[40,40])]
                            
-        self.upImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-upwards.png"),[45,45]),
-                        pygame.transform.scale(pygame.image.load("Manpac/pacman-open-upwards.png"),[45,45])]
+        self.upImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-upwards.png"),[40,40]),
+                        pygame.transform.scale(pygame.image.load("Manpac/pacman-open-upwards.png"),[40,40])]
         
-        self.downImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-downwards.png"),[45,45]),
-                           pygame.transform.scale(pygame.image.load("Manpac/pacman-open-downwards.png"),[45,45])]
+        self.downImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-downwards.png"),[40,40]),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-open-downwards.png"),[40,40])]
         
         
         self.images = self.rightImages
@@ -67,7 +67,13 @@ class Manpac():
                 selfdidBounceY = True
                 self.move()
                 self.speedy = 0
-    
+                
+    def collideWall(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                self.speedx = 0
+                self.speedy = 0
+                 
     def animate(self):
         if self.timer < self.timerMax:
             self.timer += 1
