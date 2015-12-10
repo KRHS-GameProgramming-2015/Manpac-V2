@@ -3,24 +3,27 @@ import sys, pygame, math, random
 class Ghost():
     def __init__(self, name, pos=[0,0]):
         if name == "purple":
-            self.image = pygame.image.load("Ghost/purple.png")
-            self.image = pygame.transform.scale(self.image,[45,45])
-            self.rect = self.image.get_rect()
+            self.imageliving = pygame.image.load("Ghost/purple.png")
+            self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
             self.maxSpeed = 3
         elif name == "blue":
-            self.image = pygame.image.load("Ghost/blue.png")
-            self.image = pygame.transform.scale(self.image,[45,45])
-            self.rect = self.image.get_rect()
+            self.imageliving = pygame.image.load("Ghost/blue.png")
+            self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
             self.maxSpeed = 5
         elif name == "green":
-            self.image = pygame.image.load("Ghost/green.png")
-            self.image = pygame.transform.scale(self.image,[45,45])
-            self.rect = self.image.get_rect()
+            self.imageliving = pygame.image.load("Ghost/green.png")
+            self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
             self.speed = [0,0]
             self.maxSpeed = 3
         else:
             print "BAD NAME!!!!", name
             sys.exit()
+            
+        self.imagedead = pygame.image.load("Ghost/dead ghost.png")
+        self.imagedead = pygame.transform.scale(self.imagedead,[45,45])
+        
+        self.image = self.imageliving
+        self.rect = self.image.get_rect()
         
         self.speed = [0,0]
         while self.speed == [0,0]:
