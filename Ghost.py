@@ -6,18 +6,18 @@ class Ghost():
             self.image = pygame.image.load("Ghost/purple.png")
             self.image = pygame.transform.scale(self.image,[45,45])
             self.rect = self.image.get_rect()
-            self.maxSpeed = 5
+            self.maxSpeed = 3
         elif name == "blue":
             self.image = pygame.image.load("Ghost/blue.png")
             self.image = pygame.transform.scale(self.image,[45,45])
             self.rect = self.image.get_rect()
-            self.maxSpeed = 7
+            self.maxSpeed = 5
         elif name == "green":
             self.image = pygame.image.load("Ghost/green.png")
             self.image = pygame.transform.scale(self.image,[45,45])
             self.rect = self.image.get_rect()
             self.speed = [0,0]
-            self.maxSpeed = 6
+            self.maxSpeed = 3
         else:
             print "BAD NAME!!!!", name
             sys.exit()
