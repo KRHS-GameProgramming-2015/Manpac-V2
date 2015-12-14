@@ -42,6 +42,7 @@ class Manpac():
         self.rect = self.rect.move(pos)
         
         self.living = True
+        self.lives = 3
         
     def die(self):
         self.living = False
@@ -50,6 +51,13 @@ class Manpac():
         self.move()
         self.animate()
         self.collideScreen(size)
+    
+    def collideGhost(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                if self.radius + other.radius > self.distanceTo(other.rect.center):
+                    return True
+        return False
     
     def collideScreen(self, size):
         width = size[0]
@@ -73,6 +81,10 @@ class Manpac():
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 self.speedx = 0
                 self.speedy = 0
+    
+    def die(self):
+        self.lives -=1
+        self.rect.center = [350,350]
                  
     def animate(self):
         if self.timer < self.timerMax:
@@ -89,8 +101,8 @@ class Manpac():
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.didBounceX = False
-        self.didBounceY = False
-    
+        self.didBounceY = False 
+                     
     def go(self, direction):
         if direction == "up":
             self.yDirection = "up"
@@ -119,5 +131,14 @@ class Manpac():
         elif direction == "stop left":
             self.speedx = 0
             
+    def distanceTo(self, pt):
+        x1 = self.rect.center[0]
+        y1 = self.rect.center[1]
+        x2 = pt[0]
+        y2 = pt[1]
+        return math.sqrt((x1-x2)**2+(y1-y2)**2)
+        
+        
+        
             
             

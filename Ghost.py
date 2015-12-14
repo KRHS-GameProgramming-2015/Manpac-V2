@@ -42,6 +42,14 @@ class Ghost():
     def update(self, size):
         self.move()
         self.collideScreen(size)
+        
+    def die(self):
+        self.living = False
+        self.image = self.imagedead
+        
+    def respawn(self):
+        self.living = True
+        self.image = self.imageliving
     
     def move(self):
         self.speed = [self.speedx, self.speedy]
