@@ -74,7 +74,7 @@ while True:
         for wall in walls:
             ghost.collideWall(wall)
         if player.collideGhost(ghost):
-            player.die()
+            player.die() 
     
     bgColor = r,g,b
     screen.fill(bgColor)
