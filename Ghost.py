@@ -52,6 +52,12 @@ class Ghost():
         self.image = self.imageliving
     
     def move(self):
+        if random.randint(0,90) == 0:
+            self.speed = [0,0]
+            while self.speed == [0,0]:
+                self.speedx = self.maxSpeed * random.randint(-1,1)
+                self.speedy = self.maxSpeed * random.randint(-1,1)
+                self.speed = [self.speedx, self.speedy]
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.didBounceX = False
@@ -75,20 +81,11 @@ class Ghost():
     def collideWall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                if not self.didBounceX:
-                    if ((self.rect.center[0] < other.rect.center[0] and self.speedx > 0) or
-                        (self.rect.center[0] > other.rect.center[0] and self.speedx < 0)):
-                        self.speedx = -self.speedx
-                        self.didBounceX = True
-                        self.move()
-                if not self.didBounceY:
-                    if ((self.rect.center[1] < other.rect.center[1] and self.speedy > 0) or
-                        (self.rect.center[1] > other.rect.center[1] and self.speedy < 0)):
-                        self.speedy = -self.speedy
-                        self.didBounceY = True
-                        self.move()
-                oldspeed = self.speed
-                while self.speed == [0,0] or self.speed == oldspeed:
+                self.speedx = -self.speedx
+                self.speedy = -self.speedy
+                self.move()
+                self.speed = [0,0]
+                while self.speed == [0,0]:
                     self.speedx = self.maxSpeed * random.randint(-1,1)
                     self.speedy = self.maxSpeed * random.randint(-1,1)
                     self.speed = [self.speedx, self.speedy]
