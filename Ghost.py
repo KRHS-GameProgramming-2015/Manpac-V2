@@ -9,7 +9,7 @@ class Ghost():
         elif name == "blue":
             self.imageliving = pygame.image.load("Ghost/blue.png")
             self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
-            self.maxSpeed = 5
+            self.maxSpeed = 4
         elif name == "green":
             self.imageliving = pygame.image.load("Ghost/green.png")
             self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
