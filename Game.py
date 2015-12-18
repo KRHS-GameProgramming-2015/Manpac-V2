@@ -2,6 +2,7 @@ import sys, pygame, math, random
 from Wall import *
 from Ghost import *
 from Manpac import *
+from Norb import *
 
 pygame.init()
 
@@ -20,6 +21,8 @@ ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("green", [random.randint(250, 450),random.randint(250, 450)])]
 
 player = Manpac([7,7], (602,602))
+
+orbs = [Norb([75,75])]
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
@@ -73,11 +76,23 @@ while True:
         ghost.update(size)
         for wall in walls:
             ghost.collideWall(wall)
-        if player.collideGhost(ghost):
+        if player.collideObject(ghost):
             player.die() 
+    
+    for orb in orbs:
+        orb.update(size)
+        if player.collideObject(orb):
+            if orb.kind == "normal": 
+                orb.living = False
+    
+    for orb in orbs:
+        if not orb.living:
+            orbs.remove(orb)
     
     bgColor = r,g,b
     screen.fill(bgColor)
+    for orb in orbs:
+        screen.blit(orb.image, orb.rect)
     screen.blit(player.image, player.rect)
     for ghost in ghosts:
         screen.blit(ghost.image, ghost.rect)

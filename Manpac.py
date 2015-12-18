@@ -52,7 +52,7 @@ class Manpac():
         self.animate()
         self.collideScreen(size)
     
-    def collideGhost(self, other):
+    def collideObject(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if self.radius + other.radius > self.distanceTo(other.rect.center):
