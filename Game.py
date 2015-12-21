@@ -23,7 +23,25 @@ ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
 player = Manpac([7,7], (602,602))
 
 orbs = [Norb([75,75]),
-        Norb([225,75])]
+        Norb([125,75]),
+        Norb([175,75]),
+        Norb([225,75]),
+        Norb([275,75]),
+        Norb([325,75]),
+        Norb([375,75]),
+        Norb([425,75]),
+        Norb([475,75]),
+        Norb([525,75]),
+        Norb([575,75]),
+        Norb([625,75]),
+        Norb([75,125]),
+        Norb([75,175]),
+        Norb([75,225]),
+        Norb([75,275]),
+        Norb([75,325]),
+        Norb([75,375]),
+        Norb([75,425]),
+        ]
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
