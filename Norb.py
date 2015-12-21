@@ -9,6 +9,19 @@ class Norb():
         self.living = True
         self.value = 10
         self.kind = "normal"
+        
+    def update(self, size):
+        pass
+
+
+class Eorb():
+    def __init__(self, pos=[0,0]):
+        self.image = pygame.image.load("Eorb/Eorb.png")
+        self.image = pygame.transform.scale(self.image, [(25,25)]
+        self.radius = self.rect.width/2 - 2
+        self.living = True
+        self.value = 25
+        self.kind = "energizer"
     
     def update(self, size):
         pass
