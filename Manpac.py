@@ -44,6 +44,8 @@ class Manpac():
         self.living = True
         self.lives = 3
         
+        self.score = 0
+        
     def die(self):
         self.living = False
 

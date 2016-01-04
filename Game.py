@@ -81,6 +81,7 @@ orbs = [Norb([75,75]),
         Norb([375,125]),
         Norb([375,275]),
         ]
+        
 
 walls = [Wall([0,0],[800,50]), #0
          Wall([0,50],[50,300]),
@@ -140,8 +141,9 @@ while True:
     for orb in orbs:
         orb.update(size)
         if player.collideObject(orb):
-            if orb.kind == "normal": 
-                orb.living = False
+            player.score += orb.value 
+            orb.living = False
+            print player.score
     
     for orb in orbs:
         if not orb.living:
