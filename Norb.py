@@ -18,7 +18,7 @@ class Eorb(Norb):
     def __init__(self, pos=[0,0]):
         Norb.__init__(self,pos)
         self.image = pygame.image.load("Eorb/Eorb.png")
-        self.image = pygame.transform.scale(self.image, [(40,40)]
+        self.image = pygame.transform.scale(self.image, [40,40])
         self.radius = self.rect.width/2 - 2
         self.living = True
         self.value = 25
