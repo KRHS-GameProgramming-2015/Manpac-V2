@@ -150,60 +150,76 @@ walls = [Wall([0,0],[800,50]), #0
          Wall([300,450],[400,550]), #17
           
        ]  
-         
+
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: 
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                player.go("up")
-            elif event.key == pygame.K_DOWN:
-                player.go("down")
-            elif event.key == pygame.K_LEFT:
-                player.go("left")
-            elif event.key == pygame.K_RIGHT:
-                player.go("right")
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                player.go("stop up")
-            elif event.key == pygame.K_DOWN:
-                player.go("stop down")
-            elif event.key == pygame.K_LEFT:
-                player.go("stop left")
-            elif event.key == pygame.K_RIGHT:
-                player.go("stop right")
-                
-    player.update(size)
-    for wall in walls:
-        player.collideWall(wall)
-                
-    for ghost in ghosts:
-        ghost.update(size)
+    while player.living:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    player.go("up")
+                elif event.key == pygame.K_DOWN:
+                    player.go("down")
+                elif event.key == pygame.K_LEFT:
+                    player.go("left")
+                elif event.key == pygame.K_RIGHT:
+                    player.go("right")
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    player.go("stop up")
+                elif event.key == pygame.K_DOWN:
+                    player.go("stop down")
+                elif event.key == pygame.K_LEFT:
+                    player.go("stop left")
+                elif event.key == pygame.K_RIGHT:
+                    player.go("stop right")
+                    
+        player.update(size)
         for wall in walls:
-            ghost.collideWall(wall)
-        if player.collideObject(ghost):
-            player.die() 
-    
-    for orb in orbs:
-        orb.update(size)
-        if player.collideObject(orb):
-            player.score += orb.value 
-            orb.living = False
-            print player.score
-    
-    for orb in orbs:
-        if not orb.living:
-            orbs.remove(orb)
-    
-    bgColor = r,g,b
-    screen.fill(bgColor)
-    for orb in orbs:
-        screen.blit(orb.image, orb.rect)
-    screen.blit(player.image, player.rect)
-    for ghost in ghosts:
-        screen.blit(ghost.image, ghost.rect)
-    for wall in walls:
-        screen.blit(wall.image, wall.rect)
-    pygame.display.flip()
-    clock.tick(60) 
+            player.collideWall(wall)
+                    
+        for ghost in ghosts:
+            ghost.update(size)
+            for wall in walls:
+                ghost.collideWall(wall)
+            if player.collideObject(ghost):
+                player.die() 
+                player.rect.center = (625,625)
+        
+        for orb in orbs:
+            orb.update(size)
+            if player.collideObject(orb):
+                player.score += orb.value 
+                orb.living = False
+                print player.score
+        
+        for orb in orbs:
+            if not orb.living:
+                orbs.remove(orb)
+        
+        bgColor = r,g,b
+        screen.fill(bgColor)
+        for orb in orbs:
+            screen.blit(orb.image, orb.rect)
+        screen.blit(player.image, player.rect)
+        for ghost in ghosts:
+            screen.blit(ghost.image, ghost.rect)
+        for wall in walls:
+            screen.blit(wall.image, wall.rect)
+        pygame.display.flip()
+        clock.tick(60) 
+        
+    while not player.living:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+                
+        bg = pygame.image.load("")
+        bgrect = bg.get_rect()
+        
+        bgColor = r,g,b
+        screen.fill(bgColor)
+        screen.blit(bg, bgrect)
+        pygame.display.flip()
+        clock.tick(60) 

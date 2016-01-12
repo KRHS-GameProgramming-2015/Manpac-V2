@@ -47,7 +47,10 @@ class Manpac():
         self.score = 0
         
     def die(self):
-        self.living = False
+        self.lives -= 1
+        self.lives
+        if self.lives <= 0:
+            self.living = False
 
     def update(self, size):
         self.move()
@@ -87,9 +90,6 @@ class Manpac():
                 self.speedx = 0
                 self.speedy = 0
     
-    def die(self):
-        self.lives -=1
-        self.rect.center = [350,350]
                  
     def animate(self):
         if self.timer < self.timerMax:
