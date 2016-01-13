@@ -215,10 +215,11 @@ while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
-            if event.key == pygame.K_R:
-                player = Manpac([7,7], (602,602))
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    player = Manpac([7,7], (602,602))
                 
-        bg = pygame.image.load("GameOver.png ")
+        bg = pygame.image.load("MenuStuff/GameOver.png")
         bgrect = bg.get_rect()
         
         bgColor = r,g,b
