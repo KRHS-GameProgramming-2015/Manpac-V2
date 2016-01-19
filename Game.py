@@ -3,6 +3,7 @@ from Wall import *
 from Ghost import *
 from Manpac import *
 from Norb import *
+from Score import *
 
 pygame.init()
 
@@ -15,6 +16,7 @@ size = width, height
 bgColor = r,g,b = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
+
 
 
 while True:
@@ -153,6 +155,7 @@ while True:
               
            ]  
 
+    score = Score((125,25))
     while player.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -177,6 +180,9 @@ while True:
                     player.go("stop right")
                     
         player.update(size)
+        
+        score.update(player.score)
+        
         for wall in walls:
             player.collideWall(wall)
                     
@@ -208,6 +214,7 @@ while True:
             screen.blit(ghost.image, ghost.rect)
         for wall in walls:
             screen.blit(wall.image, wall.rect)
+        screen.blit(score.image,score.rect)
         pygame.display.flip()
         clock.tick(60) 
         
