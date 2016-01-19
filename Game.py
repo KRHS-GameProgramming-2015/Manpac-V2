@@ -155,7 +155,8 @@ while True:
               
            ]  
 
-    score = Score((125,25))
+    score = Score("Score: ", (125,25))
+    lives = Score("Lives: ", (125,675))
     while player.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -182,6 +183,7 @@ while True:
         player.update(size)
         
         score.update(player.score)
+        lives.update(player.lives)
         
         for wall in walls:
             player.collideWall(wall)
@@ -215,6 +217,7 @@ while True:
         for wall in walls:
             screen.blit(wall.image, wall.rect)
         screen.blit(score.image,score.rect)
+        screen.blit(lives.image,lives.rect)
         pygame.display.flip()
         clock.tick(60) 
         
