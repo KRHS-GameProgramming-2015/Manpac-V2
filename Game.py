@@ -101,7 +101,6 @@ while True:
             Norb([475,175]),
             Norb([475,225]),
             Norb([475,275]),
-            Norb([475,325]),
             Norb([475,425]),
             Norb([475,475]),
             Norb([475,525]),
@@ -157,7 +156,7 @@ while True:
 
     score = Score("Score: ", (125,25))
     lives = Score("Lives: ", (125,675))
-    while player.living:
+    while player.living and len(orbs) > 0:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
@@ -220,6 +219,9 @@ while True:
         screen.blit(lives.image,lives.rect)
         pygame.display.flip()
         clock.tick(60) 
+        print len(orbs)
+        if len(orbs) == 1:
+            print orbs[0].rect.center
         
     while not player.living:
         for event in pygame.event.get():
@@ -230,6 +232,24 @@ while True:
                     player = Manpac([7,7], (602,602))
                 
         bg = pygame.image.load("MenuStuff/GameOver.png")
+        bgrect = bg.get_rect()
+        
+        bgColor = r,g,b
+        screen.fill(bgColor)
+        screen.blit(bg, bgrect)
+        pygame.display.flip()
+        clock.tick(60) 
+        
+    while len(orbs) <= 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    player = Manpac([7,7], (602,602))
+                    orbs += [Norb([75,75])]
+                
+        bg = pygame.image.load("MenuStuff/Win screen.png")
         bgrect = bg.get_rect()
         
         bgColor = r,g,b
