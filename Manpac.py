@@ -69,17 +69,10 @@ class Manpac():
         height = size[1]
         
         if not self.didBounceX:
-            if self.rect.left < 0 or self.rect.right > width:
-                self.speedx = -self.speedx
-                self.didBounceX = True
-                self.move()
-                self.speedx = 0
-        if not self.didBounceY:
-            if self.rect.top < 0 or self.rect.bottom > height:
-                self.speedy = -self.speedy
-                selfdidBounceY = True
-                self.move()
-                self.speedy = 0
+            if self.rect.center[0] < -1: 
+                self.rect.center = (width, self.rect.center[1])
+            elif self.rect.center[0] > width+1:
+                self.rect.center = (0, self.rect.center[1])
                 
     def collideWall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
