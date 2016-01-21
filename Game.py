@@ -151,8 +151,11 @@ while True:
              Wall([300,150],[400,250]), #15
              Wall([450,300],[550,400]), 
              Wall([300,450],[400,550]), #17
-              
            ]  
+    
+    ghosts = [Ghost("purple", [random.randint(5, 8)*50+25,random.randint(5, 8)*50+25]),
+          Ghost("blue", [random.randint(5, 8)*50+25,random.randint(5, 8)*50+25]),
+          Ghost("green", [random.randint(5, 8)*50+25,random.randint(5, 8)*50+25])]
 
     score = Score("Score: ", (125,25))
     lives = Score("Lives: ", (125,675))
