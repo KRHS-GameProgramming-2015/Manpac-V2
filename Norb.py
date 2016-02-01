@@ -27,3 +27,14 @@ class Eorb(Norb):
     def update(self, size):
         pass
 
+class Fruit():
+    def __init__(self, pos=[0,0]):
+        self.image = pygame.image.load("Fruit/Cherry.png")
+        self.image = pygame.transform.scale(self.image, [25,25])
+        self.radius = self.rect.width/2 - 2
+        self.living = True
+        self.value = 75
+        self.kind = "normal"
+    
+    def update(self, size):
+        pass
