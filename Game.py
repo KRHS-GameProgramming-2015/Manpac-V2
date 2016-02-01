@@ -17,8 +17,6 @@ bgColor = r,g,b = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-
-
 while True:
     ghosts = [Ghost("purple", [random.randint(250, 450),random.randint(250, 450)]),
           Ghost("blue", [random.randint(250, 450),random.randint(250, 450)]),
