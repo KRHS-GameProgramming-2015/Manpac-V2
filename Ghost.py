@@ -18,7 +18,9 @@ class Ghost():
         else:
             print "BAD NAME!!!!", name
             sys.exit()
-            
+        
+        self.startPos = pos
+        
         self.imagedead = pygame.image.load("Ghost/dead ghost.png")
         self.imagedead = pygame.transform.scale(self.imagedead,[45,45])
         
@@ -38,18 +40,46 @@ class Ghost():
         self.didBounceY = False
         
         self.rect.center = pos
+        
+        self.energized = False
+        self.energizedtimer = 0
+        self.energizedtimerMax = 5* 60 
+        
+        self.deadtimer = 0 
+        self.deadtimerMax = 3*60
     
     def update(self, size):
         self.move()
         self.collideScreen(size)
         
+        if self.energizedtimer > 0:
+            self.energizedtimer += 1
+            if self.energizedtimer > self.energizedtimerMax:
+                self.energizedtimer = 0
+                self.energized = False 
+                self.image = self.imageliving
+                
+        if self.deadtimer > 0:
+            self.deadtimer += 1
+            if self.deadtimer > self.deadtimerMax:
+                self.deadtimer = 0
+                self.respawn()
+             
+    def weaken(self):
+        self.energized = True
+        self.energizedtimer = 1
+        self.image = self.imagedead
+        
     def die(self):
         self.living = False
-        self.image = self.imagedead
+        self.deadtimer = 1
+        
         
     def respawn(self):
         self.living = True
         self.image = self.imageliving
+        self.rect.center = self.startPos
+        self.energized = False
     
     def move(self):
         if random.randint(0,90) == 0:

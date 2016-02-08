@@ -124,10 +124,10 @@ while True:
             Norb([625,525]),
             Norb([625,575]),
             Norb([625,625]),
-            Eorb([515,167]),
-            Eorb([170,170]),
-            Eorb([167,515]),
-            Eorb([517,516]),
+            Eorb([525,175]),
+            Eorb([175,175]),
+            Eorb([175,525]),
+            Eorb([525,525]),
             ]
             
 
@@ -192,14 +192,21 @@ while True:
             ghost.update(size)
             for wall in walls:
                 ghost.collideWall(wall)
-            if player.collideObject(ghost):
-                player.die() 
-                player.rect.center = (625,625)
+            if ghost.living:
+                if player.collideObject(ghost):
+                    if ghost.energized:
+                        ghost.die()
+                    else:
+                        player.die() 
+                        player.rect.center = (625,625)
         
         for orb in orbs:
             orb.update(size)
             if player.collideObject(orb):
                 player.score += orb.value 
+                if orb.kind == "energizer":
+                    for ghost in ghosts:
+                        ghost.weaken()
                 orb.living = False
                 print player.score
         
@@ -213,7 +220,8 @@ while True:
             screen.blit(orb.image, orb.rect)
         screen.blit(player.image, player.rect)
         for ghost in ghosts:
-            screen.blit(ghost.image, ghost.rect)
+            if ghost.living:
+                screen.blit(ghost.image, ghost.rect)
         for wall in walls:
             screen.blit(wall.image, wall.rect)
         screen.blit(score.image,score.rect)

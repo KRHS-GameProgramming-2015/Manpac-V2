@@ -44,6 +44,8 @@ class Manpac():
         self.living = True
         self.lives = 3
         
+       
+        
         self.score = 0
         
     def die(self):
@@ -56,6 +58,8 @@ class Manpac():
         self.move()
         self.animate()
         self.collideScreen(size)
+        
+        
     
     def collideObject(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
@@ -82,6 +86,10 @@ class Manpac():
                 self.move()
                 self.speedx = 0
                 self.speedy = 0
+    
+    
+    
+        
     
                  
     def animate(self):
