@@ -64,10 +64,15 @@ class Level():
                             Norb([self.blockSize*x+self.blockSize/2+fx*screenWidth,
                                   self.blockSize*y+self.blockSize/2+fy*screenHeight],
                                   self.blockSize)
-                            
+                        if c == '+':
+                            Eorb([self.blockSize*x+self.blockSize/2+fx*screenWidth,
+                                  self.blockSize*y+self.blockSize/2+fy*screenHeight],
+                                  self.blockSize)
+                        if c == '$':    
                             Fruit([self.blockSize*x+self.blockSize/2+fx*screenWidth,
                                   self.blockSize*y+self.blockSize/2+fy*screenHeight],
                                   self.blockSize)
+                            print x,y
             
 if __name__ == "__main__":
     pygame.init()
@@ -83,11 +88,12 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size)
     
     boundries = pygame.sprite.Group()
-    orbs = pygame.sprite.Group()
+    extras = pygame.sprite.Group()
     all = pygame.sprite.OrderedUpdates()
     
     Wall.containers = (boundries, all)
-    Norb.containers = (orbs, all)
+    Norb.containers = (extras, all)
+    Fruit.containers = (extras, all)
     
     myLev = Level("Levels/Map", 3,3)
     
