@@ -1,9 +1,10 @@
 import sys, pygame, math
 
-class Norb():
-    def __init__(self, pos=[0,0]):
+class Norb(pygame.sprite.Sprite):
+    def __init__(self, pos=[0,0], blockSize = 50):
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("Norb/Norb.png")
-        self.image = pygame.transform.scale(self.image, [25,25])
+        self.image = pygame.transform.scale(self.image, [blockSize/2,blockSize/2])
         self.rect = self.image.get_rect(center = pos)
         self.radius = self.rect.width/2 - 2
         self.living = True
