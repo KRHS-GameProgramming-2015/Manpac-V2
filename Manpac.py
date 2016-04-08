@@ -1,7 +1,8 @@
 import sys, pygame, math
 
-class Manpac():
+class Manpac(pygame.sprite.Sprite):
     def __init__(self, maxSpeed, pos = [0,0]):
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),[40,40]),
                             pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),[40,40])]
                            
@@ -54,7 +55,9 @@ class Manpac():
         if self.lives <= 0:
             self.living = False
 
-    def update(self, size):
+    def update(*args):
+        self = args[0]
+        size = args[1]
         self.move()
         self.animate()
         self.collideScreen(size)

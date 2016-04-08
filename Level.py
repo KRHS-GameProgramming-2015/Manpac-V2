@@ -3,9 +3,73 @@ from Wall import *
 from Extras import *
 
 class Level():
-    def __init__(self, lev, sizeX, sizeY):
-        #self.loadLevel(lev)
-        self.loadAllLevels(lev, sizeX, sizeY)
+    def __init__(self, lev, sizeX=None, sizeY=None, showAll = False):
+        if not showAll:
+            self.loadLevel(lev)
+        else:
+            self.loadAllLevels(lev, sizeX, sizeY)
+    
+    def loadLevel(self, lev):
+        fileName = lev+".lvl"
+        print fileName
+        
+        self.blockSize = 50
+        
+        file = open(fileName, 'r')
+        lines = file.readlines()
+        file.close()
+        
+        newlines = []
+        for line in lines:
+            newline = ""
+            for c in line:
+                if c != '\n':
+                    newline+= c
+            newlines += [newline]
+        lines = newlines
+
+        for line in lines:
+            print line
+            
+        for y, line in enumerate(lines):
+            for x, c in enumerate(line):
+                if c == '#':
+                    Wall([self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2],
+                          self.blockSize)
+        
+        fileName = lev+".xta"
+
+        file = open(fileName, 'r')
+        lines = file.readlines()
+        file.close()
+        
+        newlines = []
+        for line in lines:
+            newline = ""
+            for c in line:
+                if c != '\n':
+                    newline+= c
+            newlines += [newline]
+        lines = newlines
+
+        for line in lines:
+            print line
+            
+        for y, line in enumerate(lines):
+            for x, c in enumerate(line):
+                if c == '.':
+                    Norb([self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2],
+                          self.blockSize)
+                if c == '+':
+                    Eorb([self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2],
+                          self.blockSize)
+                if c == '$':    
+                    Fruit([self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2],
+                          self.blockSize)
     
     def loadAllLevels(self, lev, sizeX, sizeY):
         for fy in range(sizeY):
@@ -95,7 +159,7 @@ if __name__ == "__main__":
     Norb.containers = (extras, all)
     Fruit.containers = (extras, all)
     
-    myLev = Level("Levels/Map", 3,3)
+    myLev = Level("Levels/Map", 3,3, True)
     
     while True:
         for event in pygame.event.get():

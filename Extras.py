@@ -11,7 +11,7 @@ class Norb(pygame.sprite.Sprite):
         self.value = 10
         self.kind = "normal"
         
-    def update(self, size):
+    def update(*args):
         pass
 
 
@@ -46,7 +46,8 @@ class Eorb(Norb):
                 self.frame = 0
         self.image = self.images[self.frame]
     
-    def update(self, size):
+    def update(*args):
+        self = args[0]
         self.animate()
 
 class Fruit(pygame.sprite.Sprite):
@@ -60,5 +61,5 @@ class Fruit(pygame.sprite.Sprite):
         self.value = 75
         self.kind = "normal"
     
-    def update(self, size):
+    def update(*args):
         pass
