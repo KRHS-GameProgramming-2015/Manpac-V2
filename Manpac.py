@@ -2,18 +2,19 @@ import sys, pygame, math
 
 class Manpac(pygame.sprite.Sprite):
     def __init__(self, maxSpeed, pos = [0,0]):
+        playerSize = [35,35]
         pygame.sprite.Sprite.__init__(self, self.containers)
-        self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),[40,40]),
-                            pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),[40,40])]
+        self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),playerSize),
+                            pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),playerSize)]
                            
-        self.leftImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-left.png"),[40,40]),
-                           pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-left.png"),[40,40])]
+        self.leftImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-left.png"),playerSize),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-left.png"),playerSize)]
                            
-        self.upImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-upwards.png"),[40,40]),
-                        pygame.transform.scale(pygame.image.load("Manpac/pacman-open-upwards.png"),[40,40])]
+        self.upImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-upwards.png"),playerSize),
+                        pygame.transform.scale(pygame.image.load("Manpac/pacman-open-upwards.png"),playerSize)]
         
-        self.downImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-downwards.png"),[40,40]),
-                           pygame.transform.scale(pygame.image.load("Manpac/pacman-open-downwards.png"),[40,40])]
+        self.downImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-downwards.png"),playerSize),
+                           pygame.transform.scale(pygame.image.load("Manpac/pacman-open-downwards.png"),playerSize)]
         
         
         self.images = self.rightImages
@@ -82,13 +83,11 @@ class Manpac(pygame.sprite.Sprite):
                 self.rect.center = (0, self.rect.center[1])
                 
     def collideWall(self, other):
-        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                self.speedx = -self.speedx
-                self.speedy = -self.speedy
-                self.move()
-                self.speedx = 0
-                self.speedy = 0
+        self.speedx = -self.speedx
+        self.speedy = -self.speedy
+        self.move()
+        self.speedx = 0
+        self.speedy = 0
     
     
     

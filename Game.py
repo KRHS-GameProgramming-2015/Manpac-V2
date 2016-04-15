@@ -65,6 +65,13 @@ while True:
                     
         all.update(size, player.lives)
         
+        playersHitsWalls = pygame.sprite.groupcollide(players, walls, False, False)
+        
+        for p in playersHitsWalls:
+            for wall in playersHitsWalls[p]:
+                p.collideWall(wall)
+        
+        
         bgColor = r,g,b
         screen.fill(bgColor)
         dirty = all.draw(screen)
