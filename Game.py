@@ -74,7 +74,7 @@ while True:
         
         bgColor = r,g,b
         screen.fill(bgColor)
-        dirty = all.draw(screen)
+        dirty = all.draw(screen) 
         pygame.display.update(dirty)
         pygame.display.flip()
         clock.tick(60)
