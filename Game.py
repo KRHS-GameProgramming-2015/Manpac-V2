@@ -33,13 +33,13 @@ Score.containers = (hud, all)
 
 screen = pygame.display.set_mode(size)
 
-level = Level("Levels/Map11")
+level = Level("Levels/Map33")
 
 while True:
     player = Manpac([7,7], (602,602))
     
-    score = Score("Score: ", (125,25))
-    lives = Score("Lives: ", (125,675))
+    score = Score("Score: ", 0, (125,25))
+    lives = Lives("Lives: ", 3,  (125,675))
     while player.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -62,7 +62,7 @@ while True:
                     player.go("stop left")
                 elif event.key == pygame.K_RIGHT:
                     player.go("stop right")
-                    
+        
         all.update(size, player.lives)
         
         playersHitsWalls = pygame.sprite.groupcollide(players, walls, False, False)
