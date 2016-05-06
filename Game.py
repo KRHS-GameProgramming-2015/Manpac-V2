@@ -21,19 +21,23 @@ walls = pygame.sprite.Group()
 players = pygame.sprite.Group()
 extras = pygame.sprite.Group()
 hud = pygame.sprite.Group()
+unloaded = pygame.sprite.Group()
 all = pygame.sprite.OrderedUpdates()
 
-Ghost.containers = (ghosts, all)
-Wall.containers = (walls, all)
+Ghost.containers = (ghosts, unloaded, all)
+Wall.containers = (walls, unloaded, all)
 Manpac.containers = (players, all)
-Eorb.containers = (extras, all)
-Norb.containers = (extras, all)
-Fruit.containers = (extras, all)
+Eorb.containers = (extras, unloaded, all)
+Norb.containers = (extras, unloaded, all)
+Fruit.containers = (extras, unloaded, all)
 Score.containers = (hud, all)
 
 screen = pygame.display.set_mode(size)
 
-level = Level("Levels/Map11")
+
+lx = 1
+ly = 1
+level = Level("Levels/Map"+str(lx)+str(ly))
 
 while True:
     player = Manpac([7,7], (602,602))
@@ -64,6 +68,33 @@ while True:
                     player.go("stop right")
         
         all.update(size, player.lives)
+        
+        if player.rect.center[0] > size[0]:
+            lx += 1
+            for s in unloaded.sprites():
+                s.kill()
+            level = Level("Levels/Map"+str(lx)+str(ly))
+            player.rect.center = [0, player.rect.center[1]]
+        elif player.rect.center[0] < 0:
+            lx -= 1
+            for s in unloaded.sprites():
+                s.kill()
+            level = Level("Levels/Map"+str(lx)+str(ly))
+            player.rect.center = [size[0], player.rect.center[1]]
+        
+        elif player.rect.center[1] > size[1]:
+            ly += 1
+            for s in unloaded.sprites():
+                s.kill()
+            level = Level("Levels/Map"+str(lx)+str(ly))
+            player.rect.center = [player.rect.center[0], 0]
+        elif player.rect.center[1] < 0:
+            ly -= 1
+            for s in unloaded.sprites():
+                s.kill()
+            level = Level("Levels/Map"+str(lx)+str(ly))
+            player.rect.center = [player.rect.center[0], size[1]]
+            
         
         playersHitsWalls = pygame.sprite.groupcollide(players, walls, False, False)
         
