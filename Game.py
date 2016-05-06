@@ -109,8 +109,15 @@ while True:
         for p in playersHitsWalls:
             for wall in playersHitsWalls[p]:
                 p.collideWall(wall)
+                
+                
+        playersHitsextras = pygame.sprite.groupcollide(players, extras, False, False)
         
-
+        for p in playersHitsextras:
+            for extra in playersHitsextras[p]:
+                score.increase(extra.value)
+                extra.kill()
+        
         
         bgColor = r,g,b
         screen.fill(bgColor)
