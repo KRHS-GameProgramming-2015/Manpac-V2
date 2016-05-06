@@ -33,11 +33,7 @@ Score.containers = (hud, all)
 
 screen = pygame.display.set_mode(size)
 
-<<<<<<< Updated upstream
-level = Level("Levels/Map33")
-=======
-level = Level("Levels/Map21")
->>>>>>> Stashed changes
+level = Level("Levels/Map11")
 
 while True:
     player = Manpac([7,7], (602,602))
@@ -74,6 +70,14 @@ while True:
         for p in playersHitsWalls:
             for wall in playersHitsWalls[p]:
                 p.collideWall(wall)
+                
+                
+        playersHitsextras = pygame.sprite.groupcollide(players, extras, False, False)
+        
+        for p in playersHitsextras:
+            for extra in playersHitsextras[p]:
+                score.increase(extra.value)
+                extra.kill()
         
         
         bgColor = r,g,b
