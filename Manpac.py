@@ -61,7 +61,6 @@ class Manpac(pygame.sprite.Sprite):
         size = args[1]
         self.move()
         self.animate()
-        self.collideScreen(size)
         
         
     
@@ -71,16 +70,6 @@ class Manpac(pygame.sprite.Sprite):
                 if self.radius + other.radius > self.distanceTo(other.rect.center):
                     return True
         return False
-    
-    def collideScreen(self, size):
-        width = size[0]
-        height = size[1]
-        
-        if not self.didBounceX:
-            if self.rect.center[0] < -1: 
-                self.rect.center = (width, self.rect.center[1])
-            elif self.rect.center[0] > width+1:
-                self.rect.center = (0, self.rect.center[1])
                 
     def collideWall(self, other):
         self.speedx = -self.speedx
