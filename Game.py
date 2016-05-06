@@ -33,7 +33,11 @@ Score.containers = (hud, all)
 
 screen = pygame.display.set_mode(size)
 
+<<<<<<< Updated upstream
 level = Level("Levels/Map33")
+=======
+level = Level("Levels/Map21")
+>>>>>>> Stashed changes
 
 while True:
     player = Manpac([7,7], (602,602))
