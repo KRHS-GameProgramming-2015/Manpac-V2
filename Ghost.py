@@ -1,7 +1,8 @@
 import sys, pygame, math, random
 
-class Ghost():
+class Ghost(pygame.sprite.Sprite):
     def __init__(self, name, pos=[0,0]):
+        pygame.sprite.Sprite.__init__(self, self.containers)
         if name == "purple":
             self.imageliving = pygame.image.load("Ghost/purple.png")
             self.imageliving = pygame.transform.scale(self.imageliving,[45,45])
