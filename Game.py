@@ -112,6 +112,15 @@ while True:
             for extra in playersHitsextras[p]:
                 score.increase(extra.value)
                 extra.kill()
+                
+                
+         #playersHitsGhost = pygame.sprite.groupcollide(players, ghost, False, False)
+         
+         #for p in playersHitsGhost:
+            #for ghost in playersHitsGhost[p]:
+                #p.collideGhost(ghost)
+                #extra.kill()
+                
         
         
         bgColor = r,g,b
