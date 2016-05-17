@@ -1,6 +1,7 @@
 import pygame, sys, math, random
 from Wall import *
 from Extras import *
+from Ghost import *
 
 class Level():
     def __init__(self, lev, sizeX=None, sizeY=None, showAll = False):
@@ -10,33 +11,7 @@ class Level():
             self.loadAllLevels(lev, sizeX, sizeY)
     
     def loadLevel(self, lev):
-        fileName = lev+".lvl"
-        print fileName
-        
         self.blockSize = 50
-        
-        file = open(fileName, 'r')
-        lines = file.readlines()
-        file.close()
-        
-        newlines = []
-        for line in lines:
-            newline = ""
-            for c in line:
-                if c != '\n':
-                    newline+= c
-            newlines += [newline]
-        lines = newlines
-
-        for line in lines:
-            print line
-            
-        for y, line in enumerate(lines):
-            for x, c in enumerate(line):
-                if c == '#':
-                    Wall([self.blockSize*x+self.blockSize/2,
-                          self.blockSize*y+self.blockSize/2],
-                          self.blockSize)
         
         fileName = lev+".xta"
 
@@ -70,6 +45,46 @@ class Level():
                     Fruit([self.blockSize*x+self.blockSize/2,
                           self.blockSize*y+self.blockSize/2],
                           self.blockSize)
+                          
+        fileName = lev+".lvl"
+        print fileName
+        
+        file = open(fileName, 'r')
+        lines = file.readlines()
+        file.close()
+        
+        newlines = []
+        for line in lines:
+            newline = ""
+            for c in line:
+                if c != '\n':
+                    newline+= c
+            newlines += [newline]
+        lines = newlines
+
+        for line in lines:
+            print line
+            
+        for y, line in enumerate(lines):
+            for x, c in enumerate(line):
+                if c == '#':
+                    Wall([self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2],
+                          self.blockSize)
+                elif c == 'p':
+                    Ghost("purple",
+                          [self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2]) 
+                
+                elif c == 'b':
+                    Ghost("blue",
+                          [self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2]) 
+                          
+                elif c == 'g':
+                    Ghost("green",
+                          [self.blockSize*x+self.blockSize/2,
+                          self.blockSize*y+self.blockSize/2]) 
     
     def loadAllLevels(self, lev, sizeX, sizeY):
         for fy in range(sizeY):

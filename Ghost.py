@@ -49,7 +49,9 @@ class Ghost(pygame.sprite.Sprite):
         self.deadtimer = 0 
         self.deadtimerMax = 3*60
     
-    def update(self, size):
+    def update(*args):
+        self = args[0]
+        size = args[1]
         self.move()
         self.collideScreen(size)
         

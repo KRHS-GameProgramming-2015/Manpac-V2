@@ -117,14 +117,18 @@ while True:
             for extra in playersHitsextras[p]:
                 score.increase(extra.value)
                 extra.kill()
+          
+        ghostsHitsWalls = pygame.sprite.groupcollide(ghosts, walls, False, False)
+        
+        for ghost in ghostsHitsWalls:
+            for wall in ghostsHitsWalls[ghost]:
+                ghost.collideWall(wall)
                 
-                
-         #playersHitsGhost = pygame.sprite.groupcollide(players, ghost, False, False)
+        playersHitsGhosts = pygame.sprite.groupcollide(players, ghosts, False, False)
          
-         #for p in playersHitsGhost:
-            #for ghost in playersHitsGhost[p]:
-                #p.collideGhost(ghost)
-                #extra.kill()
+        for p in playersHitsGhosts:
+            for ghost in playersHitsGhosts[p]:
+                p.collideGhost(ghost)
                 
         
         
