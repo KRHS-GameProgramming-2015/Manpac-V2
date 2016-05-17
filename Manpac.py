@@ -3,6 +3,7 @@ import sys, pygame, math
 class Manpac(pygame.sprite.Sprite):
     def __init__(self, maxSpeed, pos = [0,0]):
         playerSize = [35,35]
+        self.layer = 1
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.rightImages = [pygame.transform.scale(pygame.image.load("Manpac/pacman-open-right.png"),playerSize),
                             pygame.transform.scale(pygame.image.load("Manpac/pacman-closed-right.png"),playerSize)]
