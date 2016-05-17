@@ -22,7 +22,7 @@ players = pygame.sprite.Group()
 extras = pygame.sprite.Group()
 hud = pygame.sprite.Group()
 unloaded = pygame.sprite.Group()
-all = pygame.sprite.LayeredUpdates()
+all = pygame.sprite.OrderedUpdates()
 
 Ghost.containers = (ghosts, unloaded, all)
 Wall.containers = (walls, unloaded, all)
@@ -31,14 +31,8 @@ Eorb.containers = (extras, unloaded, all)
 Norb.containers = (extras, unloaded, all)
 Fruit.containers = (extras, unloaded, all)
 Score.containers = (hud, all)
-
-for s in unloaded.sprites():
-    all.change_layer(s, 0)
-
-for s in hud.sprites():
-    all.change_layer(s, 1)
     
-print all.layers()
+
 
 screen = pygame.display.set_mode(size)
 
@@ -46,6 +40,7 @@ screen = pygame.display.set_mode(size)
 lx = 1
 ly = 1
 level = Level("Levels/Map"+str(lx)+str(ly))
+
 
 while True:
     player = Manpac([7,7], (602,602))

@@ -52,6 +52,7 @@ class Eorb(Norb):
 
 class Fruit(pygame.sprite.Sprite):
     def __init__(self, pos=[0,0], blockSize = 50):
+        self.layer = 0
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("Fruit/Cherry.png")
         self.image = pygame.transform.scale(self.image, [blockSize/2,blockSize/2])
