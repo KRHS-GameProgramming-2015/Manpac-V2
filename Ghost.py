@@ -48,6 +48,8 @@ class Ghost(pygame.sprite.Sprite):
         
         self.deadtimer = 0 
         self.deadtimerMax = 3*60
+        
+        self.value = 50
     
     def update(*args):
         self = args[0]
@@ -110,6 +112,13 @@ class Ghost(pygame.sprite.Sprite):
                 self.speedy = -self.speedy
                 selfdidBounceY = True
                 self.move()
+    
+    def collidePlayer(self, other):
+        if other.energized:
+            self.kill()
+            return True
+        else:
+            return False
                 
     def collideWall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
