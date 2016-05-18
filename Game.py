@@ -124,6 +124,9 @@ while True:
         for p in playersHitsGhosts:
             for ghost in playersHitsGhosts[p]:
                 p.collideGhost(ghost)
+                if ghost.collidePlayer(p):
+                    score.increase(ghost.value)
+                
                 
         
         
