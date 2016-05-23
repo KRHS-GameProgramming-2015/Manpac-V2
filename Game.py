@@ -30,7 +30,7 @@ Manpac.containers = (players, all)
 Eorb.containers = (extras, unloaded, all)
 Norb.containers = (extras, unloaded, all)
 Fruit.containers = (extras, unloaded, all)
-Score.containers = (hud, all)
+Score.containers = (hud, unloaded, all)
     
 
 
@@ -74,29 +74,44 @@ while True:
         
         if player.rect.center[0] > size[0]:
             lx += 1
+            theScore = score.score
+            theLives = lives.score
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [0, player.rect.center[1]]
+            score = Score("Score: ", theScore, (125,25))
+            lives = Lives("Lives: ", theLives,  (125,675))
         elif player.rect.center[0] < 0:
             lx -= 1
+            theScore = score.score
+            theLives = lives.score
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [size[0], player.rect.center[1]]
-        
+            score = Score("Score: ", theScore, (125,25))
+            lives = Lives("Lives: ", theLives,  (125,675))
         elif player.rect.center[1] > size[1]:
             ly += 1
+            theScore = score.score
+            theLives = lives.score
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [player.rect.center[0], 0]
+            score = Score("Score: ", theScore, (125,25))
+            lives = Lives("Lives: ", theLives,  (125,675))
         elif player.rect.center[1] < 0:
             ly -= 1
+            theScore = score.score
+            theLives = lives.score
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [player.rect.center[0], size[1]]
+            score = Score("Score: ", theScore, (125,25))
+            lives = Lives("Lives: ", theLives,  (125,675))
             
         
         playersHitsWalls = pygame.sprite.groupcollide(players, walls, False, False)
