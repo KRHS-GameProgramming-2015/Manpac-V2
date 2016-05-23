@@ -49,7 +49,9 @@ class Manpac(pygame.sprite.Sprite):
         
         self.score = 0
         
-        self.energized = True
+        self.energized = False
+        self.energizeTimer = 0
+        self.energizeTimerMax = 5*60
         
     def die(self):
         self.lives -= 1
@@ -62,6 +64,15 @@ class Manpac(pygame.sprite.Sprite):
         size = args[1]
         self.move()
         self.animate()
+        
+        if self.energizeTimer > 0:
+            self.energizeTimer -= 1
+        else:
+            self.energized = False
+        
+    def energize(self):
+        self.energized = True
+        self.energizeTimer = self.energizeTimerMax
     
     def collideObject(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:

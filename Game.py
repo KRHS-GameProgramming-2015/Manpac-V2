@@ -111,6 +111,10 @@ while True:
         for p in playersHitsextras:
             for extra in playersHitsextras[p]:
                 score.increase(extra.value)
+                if extra.kind == "energizer":
+                    p.energize()
+                    for ghost in ghosts.sprites():
+                        ghost.weaken()
                 extra.kill()
           
         ghostsHitsWalls = pygame.sprite.groupcollide(ghosts, walls, False, False)

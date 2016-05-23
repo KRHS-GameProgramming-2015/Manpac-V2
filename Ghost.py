@@ -76,7 +76,7 @@ class Ghost(pygame.sprite.Sprite):
         self.image = self.imagedead
         
     def die(self):
-        self.living = False
+        self.kill()
         self.deadtimer = 1
         
         
@@ -115,7 +115,7 @@ class Ghost(pygame.sprite.Sprite):
     
     def collidePlayer(self, other):
         if other.energized:
-            self.kill()
+            self.die()
             return True
         else:
             return False
