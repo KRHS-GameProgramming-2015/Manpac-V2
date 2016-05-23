@@ -8,7 +8,7 @@ class Norb(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = pos)
         self.radius = self.rect.width/2 - 2
         self.living = True
-        self.value = 10
+        self.value = 5
         self.kind = "normal"
         
     def update(*args):
@@ -19,7 +19,7 @@ class Eorb(Norb):
     def __init__(self, pos=[0,0], blockSize = 50):
         Norb.__init__(self, pos, blockSize)
         self.living = True
-        self.value = 25
+        self.value = 15
         self.kind = "energizer"
 
         self.images = [pygame.transform.scale(pygame.image.load("Eorb/Eorb.png"),[2*blockSize/3,2*blockSize/3]),
@@ -59,7 +59,7 @@ class Fruit(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = pos)
         self.radius = self.rect.width/2 - 2
         self.living = True
-        self.value = 75
+        self.value = 35
         self.kind = "normal"
     
     def update(*args):
