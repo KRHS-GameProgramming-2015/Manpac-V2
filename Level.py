@@ -1,4 +1,4 @@
-import pygame, sys, math, random
+import pygame, sys, math, random, os
 from Wall import *
 from Extras import *
 from Ghost import *
@@ -9,11 +9,54 @@ class Level():
             self.loadLevel(lev)
         else:
             self.loadAllLevels(lev, sizeX, sizeY)
-    
+        self.lev = lev
+        
+    def saveLevel(self, toSave):
+        sav = [[" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
+               [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",]]
+        
+        for s in toSave.sprites():
+            print s.rect.center
+            x = (s.rect.center[0] - self.blockSize/2)/self.blockSize
+            y = (s.rect.center[1] - self.blockSize/2)/self.blockSize
+            kind = s.kind
+            if kind == "energizer": c = '+'
+            if kind == "fruit": c = '$'
+            if kind == "normal": c = '.'
+            sav[y][x] = c
+            print x, y
+            
+        savText = ""
+        for line in sav:
+            for c in line:
+                savText += c
+            savText += '\n'
+                
+        fileName = self.lev+".sav"
+        file = open(fileName, 'w')
+        file.write(savText)
+        file.close()
+        
     def loadLevel(self, lev):
         self.blockSize = 50
         
-        fileName = lev+".xta"
+        fileName = lev+".sav"
+        
+        files = os.listdir("Levels/")
+        if not fileName[7:] in files:
+            fileName = lev+".xta"
 
         file = open(fileName, 'r')
         lines = file.readlines()
@@ -71,6 +114,7 @@ class Level():
                     Wall([self.blockSize*x+self.blockSize/2,
                           self.blockSize*y+self.blockSize/2],
                           self.blockSize)
+                
                 elif c == 'p':
                     Ghost("purple",
                           [self.blockSize*x+self.blockSize/2,
@@ -85,6 +129,7 @@ class Level():
                     Ghost("green",
                           [self.blockSize*x+self.blockSize/2,
                           self.blockSize*y+self.blockSize/2]) 
+                
     
     def loadAllLevels(self, lev, sizeX, sizeY):
         for fy in range(sizeY):

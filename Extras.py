@@ -60,7 +60,7 @@ class Fruit(pygame.sprite.Sprite):
         self.radius = self.rect.width/2 - 2
         self.living = True
         self.value = 15
-        self.kind = "normal"
+        self.kind = "fruit"
     
     def update(*args):
         pass
