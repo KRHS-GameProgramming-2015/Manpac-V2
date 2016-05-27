@@ -8,7 +8,7 @@ from Level import *
 
 pygame.init()
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()#hi
 
 width = 1000 
 height = 700
