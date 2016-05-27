@@ -36,11 +36,14 @@ Score.containers = (hud, unloaded, all)
 
 screen = pygame.display.set_mode(size)
 
+files = os.listdir("Levels/")
+for f in files:
+    if f[-4:] == ".sav":
+        os.remove("Levels/"+f)
 
 lx = 1
 ly = 1
 level = Level("Levels/Map"+str(lx)+str(ly))
-
 
 while True:
     player = Manpac([7,7], (602,602))
