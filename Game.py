@@ -99,7 +99,7 @@ while True:
             theLives = lives.score
             for s in unloaded.sprites():
                 s.kill()
-            level = Level("Levels/Map"+str(lx)+str(ly))
+            level = Level("Levels/Map"+str(lx)+str(ly)) 
             player.rect.center = [player.rect.center[0], 0]
             score = Score("Score: ", theScore, (125,25))
             lives = Lives("Lives: ", theLives,  (125,675))
