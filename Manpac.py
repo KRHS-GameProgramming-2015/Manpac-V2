@@ -90,7 +90,8 @@ class Manpac(pygame.sprite.Sprite):
     
     def collideGhost(self, other):
         if not self.energized:
-            self.kill() 
+            return True
+        return False
                  
     def animate(self):
         if self.timer < self.timerMax:

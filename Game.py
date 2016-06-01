@@ -32,7 +32,7 @@ Norb.containers = (extras, unloaded, all)
 Fruit.containers = (extras, unloaded, all)
 Score.containers = (hud, unloaded, all)
     
-
+deadGhosts = {}
 
 screen = pygame.display.set_mode(size)
 
@@ -49,7 +49,7 @@ while True:
     player = Manpac([7,7], (602,602))
     
     score = Score("Score: ", 0, (125,25))
-    lives = Lives("Lives: ", 3,  (125,675))
+    lives = Score("Lives: ", 3,  (125,675))
     while player.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -85,18 +85,18 @@ while True:
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [0, player.rect.center[1]]
             score = Score("Score: ", theScore, (125,25))
-            lives = Lives("Lives: ", theLives,  (125,675))
+            lives = Score("Lives: ", theLives,  (125,675))
         elif player.rect.center[0] < 0:
             lx -= 1
             theScore = score.score
-            theLives = lives.score
+            theLives = Score.score
             level.saveLevel(extras)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [size[0], player.rect.center[1]]
             score = Score("Score: ", theScore, (125,25))
-            lives = Lives("Lives: ", theLives,  (125,675))
+            lives = Score("Lives: ", theLives,  (125,675))
         elif player.rect.center[1] > size[1]:
             ly += 1
             theScore = score.score
@@ -107,7 +107,7 @@ while True:
             level = Level("Levels/Map"+str(lx)+str(ly)) 
             player.rect.center = [player.rect.center[0], 0]
             score = Score("Score: ", theScore, (125,25))
-            lives = Lives("Lives: ", theLives,  (125,675))
+            lives = Score("Lives: ", theLives,  (125,675))
         elif player.rect.center[1] < 0:
             ly -= 1
             theScore = score.score
@@ -118,7 +118,7 @@ while True:
             level = Level("Levels/Map"+str(lx)+str(ly))
             player.rect.center = [player.rect.center[0], size[1]]
             score = Score("Score: ", theScore, (125,25))
-            lives = Lives("Lives: ", theLives,  (125,675))
+            lives = Score("Lives: ", theLives,  (125,675))
             
         
         playersHitsWalls = pygame.sprite.groupcollide(players, walls, False, False)
@@ -149,12 +149,20 @@ while True:
          
         for p in playersHitsGhosts:
             for ghost in playersHitsGhosts[p]:
-                p.collideGhost(ghost)
+                if p.collideGhost(ghost):
+                    p.kill()
+                    player = Manpac([7,7], (602,602))
+                    lives.decrease(1)
+                    print lives.score
                 if ghost.collidePlayer(p):
                     score.increase(ghost.value)
-                
-                
+                    deadGhosts[ghost.name] = [ghost.startPos, 0]
+                    ghost.kill()
         
+        for ghost in deadGhosts:
+            deadGhosts[ghost][1] += 1
+            if deadGhosts[ghost][1] == 3*60:
+                Ghost(ghost, deadGhosts[ghost][0])
         
         bgColor = r,g,b
         screen.fill(bgColor)

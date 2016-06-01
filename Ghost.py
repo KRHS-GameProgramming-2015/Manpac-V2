@@ -21,6 +21,7 @@ class Ghost(pygame.sprite.Sprite):
             sys.exit()
         
         self.startPos = pos
+        self.name = name
         
         self.imagedead = pygame.image.load("Ghost/dead ghost.png")
         self.imagedead = pygame.transform.scale(self.imagedead,[45,45])
