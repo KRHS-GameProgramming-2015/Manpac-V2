@@ -48,6 +48,7 @@ class Level():
         file = open(fileName, 'w')
         file.write(savText)
         file.close()
+        print "saved", fileName
         
     def loadLevel(self, lev):
         self.blockSize = 50
@@ -55,8 +56,10 @@ class Level():
         fileName = lev+".sav"
         
         files = os.listdir("Levels/")
+        print fileName[7:], files
         if not fileName[7:] in files:
             fileName = lev+".xta"
+            print ">>>>>>>>>>>>>>>>> no save found"
 
         file = open(fileName, 'r')
         lines = file.readlines()

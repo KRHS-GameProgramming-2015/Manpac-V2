@@ -90,6 +90,7 @@ while True:
             lx -= 1
             theScore = score.score
             theLives = lives.score
+            level.saveLevel(extras)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
@@ -100,6 +101,7 @@ while True:
             ly += 1
             theScore = score.score
             theLives = lives.score
+            level.saveLevel(extras)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly)) 
@@ -110,6 +112,7 @@ while True:
             ly -= 1
             theScore = score.score
             theLives = lives.score
+            level.saveLevel(extras)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
