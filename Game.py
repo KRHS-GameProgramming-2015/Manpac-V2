@@ -89,7 +89,7 @@ while True:
         elif player.rect.center[0] < 0:
             lx -= 1
             theScore = score.score
-            theLives = Score.score
+            theLives = lives.score
             level.saveLevel(extras)
             for s in unloaded.sprites():
                 s.kill()
