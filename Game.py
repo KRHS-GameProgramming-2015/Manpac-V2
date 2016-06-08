@@ -55,24 +55,24 @@ while True:
             if event.type == pygame.QUIT: 
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("up")
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("down")
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("left")
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("right")
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("stop down")
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("stop left")
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("stop right")
-        
+            
         all.update(size, player.lives)
         
         if player.rect.center[0] > size[0]:
@@ -163,6 +163,7 @@ while True:
             deadGhosts[ghost][1] += 1
             if deadGhosts[ghost][1] == 3*60:
                 Ghost(ghost, deadGhosts[ghost][0])
+                
         
         bgColor = r,g,b
         screen.fill(bgColor)
