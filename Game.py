@@ -5,6 +5,7 @@ from Manpac import *
 from Extras import *
 from Score import *
 from Level import *
+from Background import *
 
 pygame.init()
 
@@ -31,26 +32,30 @@ Eorb.containers = (extras, unloaded, all)
 Norb.containers = (extras, unloaded, all)
 Fruit.containers = (extras, unloaded, all)
 Score.containers = (hud, unloaded, all)
-    
-deadGhosts = {}
+Background.containers = (hud, all)
 
 screen = pygame.display.set_mode(size)
 
-files = os.listdir("Levels/")
-for f in files:
-    if f[-4:] == ".sav":
-        os.remove("Levels/"+f)
-
-lx = 1
-ly = 1
-level = Level("Levels/Map"+str(lx)+str(ly))
 
 while True:
+    levelsLeft = ["11", "12", "13",
+                  "21", "22", "23",
+                  "31", "32", "33"]
+    deadGhosts = {}
+    
+    files = os.listdir("Levels/")
+    for f in files:
+        if f[-4:] == ".sav":
+            os.remove("Levels/"+f)
+    lx = 1
+    ly = 1
+    level = Level("Levels/Map"+str(lx)+str(ly))
+    
     player = Manpac([7,7], (602,602))
     
     score = Score("Score: ", 0, (125,25))
     lives = Score("Lives: ", 3,  (125,675))
-    while player.living:
+    while lives.score >= 0:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
@@ -79,7 +84,9 @@ while True:
             lx += 1
             theScore = score.score
             theLives = lives.score
-            level.saveLevel(extras)
+            if level.saveLevel(extras):
+                print "LEVEL: ", level.lev, "??????????????????????????????"
+                #levelsLeft.remove(level.lev{
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
@@ -171,3 +178,24 @@ while True:
         pygame.display.update(dirty)
         pygame.display.flip()
         clock.tick(60)
+    
+    for s in all.sprites():
+        s.kill()
+    bg = Background("MenuStuff/GameOver.png")
+    while lives.score < 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+            if event.key == pygame.K_r:
+                bg.kill()
+                lives = Score("Lives: ", 3,  (125,675))
+
+        
+        bgColor = r,g,b
+        screen.fill(bgColor)
+        dirty = all.draw(screen) 
+        pygame.display.update(dirty)
+        pygame.display.flip()
+        clock.tick(60)        
+        
+        

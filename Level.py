@@ -27,14 +27,21 @@ class Level():
                [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",],
                [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",]]
         
+        empty = True
         for s in toSave.sprites():
             print s.rect.center
             x = (s.rect.center[0] - self.blockSize/2)/self.blockSize
             y = (s.rect.center[1] - self.blockSize/2)/self.blockSize
             kind = s.kind
-            if kind == "energizer": c = '+'
-            if kind == "fruit": c = '$'
-            if kind == "normal": c = '.'
+            if kind == "energizer": 
+                c = '+'
+                empty = False
+            if kind == "fruit": 
+                c = '$'
+                empty = False
+            if kind == "normal": 
+                c = '.'
+                empty = False
             sav[y][x] = c
             print x, y
             
@@ -48,6 +55,9 @@ class Level():
         file = open(fileName, 'w')
         file.write(savText)
         file.close()
+        print "saved", fileName
+        
+        return empty
         
     def loadLevel(self, lev):
         self.blockSize = 50
@@ -58,6 +68,7 @@ class Level():
         print fileName[7:], files
         if not fileName[7:] in files:
             fileName = lev+".xta"
+            print ">>>>>>>>>>>>>>>>> no save found"
 
         file = open(fileName, 'r')
         lines = file.readlines()
