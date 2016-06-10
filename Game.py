@@ -41,6 +41,7 @@ while True:
     levelsLeft = ["11", "12", "13",
                   "21", "22", "23",
                   "31", "32", "33"]
+    
     deadGhosts = {}
     
     files = os.listdir("Levels/")
@@ -54,8 +55,8 @@ while True:
     player = Manpac([7,7], (602,602))
     
     score = Score("Score: ", 0, (125,25))
-    lives = Score("Lives: ", 3,  (125,675))
-    while lives.score >= 0:
+    lives = Score("Lives: ", 130,  (125,675)) #>>>>>>>>>>>>>>Make 3!!!
+    while lives.score >= 0  and len(levelsLeft)>8: #>>>>>>>>>>>>>>Make 0!!!
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
@@ -85,8 +86,10 @@ while True:
             theScore = score.score
             theLives = lives.score
             if level.saveLevel(extras):
-                print "LEVEL: ", level.lev, "??????????????????????????????"
-                #levelsLeft.remove(level.lev{
+                print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
+                if level.lev[-2:] in levelsLeft:
+                    levelsLeft.remove(level.lev[-2:])
+                print len(levelsLeft)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
@@ -97,7 +100,11 @@ while True:
             lx -= 1
             theScore = score.score
             theLives = lives.score
-            level.saveLevel(extras)
+            if level.saveLevel(extras):
+                print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
+                if level.lev[-2:] in levelsLeft:
+                    levelsLeft.remove(level.lev[-2:])
+                print len(levelsLeft)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
@@ -108,7 +115,11 @@ while True:
             ly += 1
             theScore = score.score
             theLives = lives.score
-            level.saveLevel(extras)
+            if level.saveLevel(extras):
+                print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
+                if level.lev[-2:] in levelsLeft:
+                    levelsLeft.remove(level.lev[-2:])
+                print len(levelsLeft)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly)) 
@@ -119,7 +130,11 @@ while True:
             ly -= 1
             theScore = score.score
             theLives = lives.score
-            level.saveLevel(extras)
+            if level.saveLevel(extras):
+                print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
+                if level.lev[-2:] in levelsLeft:
+                    levelsLeft.remove(level.lev[-2:])
+                print len(levelsLeft)
             for s in unloaded.sprites():
                 s.kill()
             level = Level("Levels/Map"+str(lx)+str(ly))
@@ -186,10 +201,22 @@ while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
-            if event.key == pygame.K_r:
-                bg.kill()
-                lives = Score("Lives: ", 3,  (125,675))
-
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    bg.kill()
+                    lives = Score("Lives: ", 3,  (125,675))
+                
+    for s in all.sprites():
+        s.kill()
+    bg = Background("MenuStuff/YouWin.png")
+    while len(levelsLeft) <= 8: #>>>>>>>>>>>>>>Make 0!!!
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    bg.kill()
+                    lives = Score("lives: ", 3,  (125,675))
         
         bgColor = r,g,b
         screen.fill(bgColor)
