@@ -55,8 +55,8 @@ while True:
     player = Manpac([7,7], (602,602))
     
     score = Score("Score: ", 0, (125,25))
-    lives = Score("Lives: ", 130,  (125,675)) #>>>>>>>>>>>>>>Make 3!!!
-    while lives.score >= 0  and len(levelsLeft)>8: #>>>>>>>>>>>>>>Make 0!!!
+    lives = Score("Lives: ", 5,  (125,675)) #>>>>>>>>>>>>>>Make 3!!!
+    while lives.score >= 5 and len(levelsLeft)>0: #>>>>>>>>>>>>>>Make 0!!!
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
@@ -204,19 +204,22 @@ while True:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     bg.kill()
-                    lives = Score("Lives: ", 3,  (125,675))
+                    lives = Score("Lives: ", 5,  (125,675))
                 
     for s in all.sprites():
         s.kill()
     bg = Background("MenuStuff/YouWin.png")
-    while len(levelsLeft) <= 8: #>>>>>>>>>>>>>>Make 0!!!
+    while len(levelsLeft) <= 0: #>>>>>>>>>>>>>>Make 0!!!
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     bg.kill()
-                    lives = Score("lives: ", 3,  (125,675))
+                    lives = Score("lives: ", 5,  (125,675))
+                    levelsLeft = ["11", "12", "13",
+                                  "21", "22", "23",
+                                  "31", "32", "33"]
         
         bgColor = r,g,b
         screen.fill(bgColor)
