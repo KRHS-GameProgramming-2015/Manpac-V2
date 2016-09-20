@@ -55,8 +55,8 @@ while True:
     player = Manpac([7,7], (602,602))
     
     score = Score("Score: ", 0, (125,25))
-    lives = Score("Lives: ", 5,  (125,675)) #>>>>>>>>>>>>>>Make 3!!!
-    while lives.score >= 5 and len(levelsLeft)>0: #>>>>>>>>>>>>>>Make 0!!!
+    lives = Score("Lives: ", 5,  (125,675)) 
+    while lives.score >= 5 and len(levelsLeft)>0: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 sys.exit()
@@ -86,7 +86,7 @@ while True:
             theScore = score.score
             theLives = lives.score
             if level.saveLevel(extras):
-                print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
+                #print "LEVEL: ", level.lev[-2:], "??????????????????????????????"
                 if level.lev[-2:] in levelsLeft:
                     levelsLeft.remove(level.lev[-2:])
                 print len(levelsLeft)
